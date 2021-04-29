@@ -1,0 +1,18 @@
+<!--消息列表-->
+<view class="msg-box">
+  <msg-list
+    id="chat-msglist"
+    inquiryInfo="{{ inquiryInfo }}"
+    bind:noticeRecallInquiryInfo="noticeRecallInquiryInfoTransition"
+    bind:hideInputBar="hideInputBar"
+    >
+  </msg-list>
+</view>
+
+<!--消息控控制按钮-->
+<view wx:if="{{ isInputBar }}">
+  <chat-inputbar
+    bind:newTextMsg="saveSendMsg"
+    inquiryInfo = "{{ inquiryInfo }}">
+  </chat-inputbar>
+</view>

@@ -1,0 +1,63 @@
+
+.input-box{
+  width: 100%;
+	height: auto;
+	position: fixed;
+	bottom: 0;
+	right: 0;
+	z-index: 1;
+	background-color: #FFFFFF;
+}
+.prescripe-content{
+  padding-top: 20rpx;
+}
+.prescripe-no-content-box{
+  width: 100%;
+  height: 450rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.prescripe-no-content-box image{
+  width: 320rpx;
+  height: 200rpx;
+}
+.prescripe-no-content-box text {
+  font-size:30rpx;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color:rgba(204,204,204,1);
+  line-height:30px;
+  margin-top: 14rpx;
+}
+.label-nth-child{
+  padding: 14rpx 0;
+}
+.input-send-msg-box{
+  padding: 30rpx 0 30rpx 30rpx; 
+}
+.input-send-type-box_common{
+  display: flex;
+  align-items: center;
+  padding: 0 30rpx;
+}
+.input-send-type-box{
+  height: 84rpx;
+}
+.input-send-type-box_ipx{
+  height: 84rpx;
+  padding-bottom: 30rpx; 
+}
+.input-send-type-box_common .item {
+  width: 88rpx;
+  height: 88rpx;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+
+}
+.input-send-type-box_common .item image {
+  width: 44rpx;
+  height: 44rpx;
+}

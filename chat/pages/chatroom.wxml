@@ -1,0 +1,12 @@
+<!--聊天组件-->
+<chat
+	id="chat"
+	inquiryInfo="{{ inquiryInfo }}"
+  chatType="singleChat"
+  bind:noticeRecallInquiryInfo="handleChatStatus"
+  >
+</chat>
+
+
+
+

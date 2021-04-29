@@ -1,0 +1,51 @@
+<wxs module="filter">
+  var statusFilter = function (value) {
+    if (value == 0) {
+      return "待审核"
+    } else if (value == 1){
+      return "审核已通过"
+    } else if (value == 2){
+      return "审核未通过"
+    } else {
+      return ""
+    }
+  }
+  var operateStatusFilter = function (value) {
+    if (value == 0) {
+      return "售后申诉"
+    } else if (value == 1){
+      return "审核通过"
+    } else if (value == 2){
+      return "审核失败"
+    } else {
+      return ""
+    }
+  }
+  module.exports = {
+    statusFilter: statusFilter,
+    operateStatusFilter: operateStatusFilter
+  }
+</wxs>
+
+<navBar title-text="申诉详情" showCapsule="{{true}}"/>
+
+<view class="appealDetail">
+  <view class="titleBox">
+    <view class="status">{{ filter.statusFilter(curAppealDetail.status) }}</view>
+    <view class="verifyDesc">{{curAppealDetail.verifyDesc}}</view>
+  </view>
+  <image src="{{appealDetailing}}"/>
+  <view class="processBox">
+    <view class="processOne" wx:for="{{ curAppealDetail.record }}" wx:key="index">
+      <view class="processContent">
+        <view class="processStep"></view>
+        <view class="statusBox">
+          <view class="title">{{ filter.operateStatusFilter(item.operateStatus) }}</view>
+          <view class="time">{{item.operateTime}}</view>
+        </view>
+        <view class="content">{{item.operateReason}}
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

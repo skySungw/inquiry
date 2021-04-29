@@ -1,0 +1,35 @@
+<!--inputbar控制区域-->
+<view id="input-box" class="input-box" wx:if="{{ !inquiryEndBtn && !inquiryEndAuto && !doctorAutoComplet }}">
+
+  <!--输入框-->
+  <view class="input-send-msg-box">
+    <input type="text" value="{{ inputMessage }}" confirm-type="send" cursor-spacing="72" bindconfirm="handleSendMessage" bindinput="handleMessage" bindtap="handleFocus" bindfocus="handleFocus" bindblur="handleBlur" placeholder="输入消息内容" placeholder-style="color:#999999;"/>
+  </view>
+
+  <!--选择消息控件-->
+  <view class="input-send-type-box_common {{isIpx?'input-send-type-box_ipx':'input-send-type-box'}}">
+    <view class="item input-send-type_record" bind:tap="handleSendAudio">
+      <image src="{{ iconRecord }}" />
+    </view>
+    <view class="item input-send-type_camera" bind:tap="handleOpenCamera">
+      <image src="{{ iconCamera }}" />
+    </view>
+    <view class="item input-send-type_image" bind:tap="handleSendImage">
+      <image src="{{ iconImage }}" />
+    </view>
+  </view>
+  <!--音频组件-->
+  <chat-record id="chat-record" userInfo="{{ userInfo }}" chatType="{{ chatType }}" 
+  inquiryInfo="{{ inquiryInfo }}" bind:newRecordMsg="saveSendMsg">
+  </chat-record>
+
+  <!--相机组件-->
+  <chat-camera id="chat-camera" userInfo="{{ userInfo }}" chatType="{{ chatType }}" 
+  inquiryInfo="{{ inquiryInfo }}" bind:newCameraMsg="saveSendMsg">
+  </chat-camera>
+
+  <!--选择图片-->
+  <chat-image id="chat-image" userInfo="{{ userInfo }}" chatType="{{ chatType }}"
+  inquiryInfo="{{ inquiryInfo }}" bind:newImageMsg="saveSendMsg">
+  </chat-image>
+</view>

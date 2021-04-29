@@ -1,0 +1,18 @@
+<view wx:if="{{isSelf}}" class="audio-player" catch:tap="audioPlay" style="opacity: {{opcity}}">
+    <text class="time">{{ time }}</text>
+    <view
+      class="controls play-btn"
+      catch:tap="audioPlay">
+      <image src="{{style == 'self'? '../../images/voicemsgmy.png' : '../../images/voicemsg.png'}}"></image>
+    </view>
+</view>
+
+
+<view wx:else class="audio-player" catch:tap="audioPlay" style="opacity: {{opcity}}">
+  <view
+    class="controls play-btn"
+    catch:tap="audioPlay">
+    <image src="{{style == 'self'? '../../images/voicemsgmy.png' : '../../images/voicemsg.png'}}"></image>
+  </view>
+    <text class="time">{{ time }}</text>
+</view>

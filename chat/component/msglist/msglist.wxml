@@ -1,0 +1,155 @@
+<im-tab-bar wx:if="{{ inquiryType === 2 }}" active="{{ stepActive }}"></im-tab-bar>
+<scanCode-im-tab-bar wx:elif="{{ inquiryType === 1 }}" active="{{ stepActive }}"></scanCode-im-tab-bar>
+<!-- 医生已取消开方 -->
+<view
+	class="{{ prescribeMsgFlag === 1 ? 'not-approved-tips-wapper' : 'approved-tips-wapper'}} prescribe-text"
+	wx:if="{{ prescribeMsgFlag === 1 || prescribeMsgFlag === 2 }}">
+	<view class="left">{{ prescribeMsg }}</view>
+</view>
+
+<!-- 审核通过tip -->
+<view class="approved-tips-wapper {{ inquiryType === 1 ? 'prescribe-text' : '' }}"
+	wx:if="{{ checkPass &&  prescribeMsgFlag === 3 }}">
+	<view class="left">药师审核已完成，可通过该处方购药</view>
+	<view class="right" bindtap="goBuyMedicine" wx:if="{{ inquiryType === 2 }}">去购药</view>
+</view>
+
+<!-- 审核未通过tip -->
+<view class="not-approved-tips-wapper"
+	wx:if="{{ checkNoPass && prescribeMsgFlag === 4 }}">
+	处方审核未通过，如有需要您可以发起新的问诊
+</view>
+
+<!-- 退款tip -->
+<view class="refund-tips-wapper" wx:if="{{ refundType }}">
+	问诊已退费退诊 退款原因：{{refundReason}}
+</view>
+
+<scroll-view id="scroll-view-box" scroll-y="true" scroll-with-animation="true" bindscrolltoupper="refresh"
+	upper-threshold='0' scroll-into-view="{{ toView }}" style="height:{{windowHeight}}px">
+	<view class="{{isIpx ?'scroll_view_X': 'scroll_view'}} {{hideInputBar? 'bottom320':''}}">
+		<!--问诊信息-->
+		<im-doctor-helper wx:if="{{ inquiryType === 1 }}" inquiryInfo="{{inquiryInfo}}"></im-doctor-helper>
+		<im-medicine-card wx:if="{{ inquiryType === 1 }}" inquiryInfo="{{inquiryInfo}}"
+			lastDiagnosis="{{inquiryInfo.lastDiagnosis}}"></im-medicine-card>
+
+		<!--IM消息-->
+		<view class="msg-content-box">
+			<!-- 问诊卡片 -->
+			<ask-card wx:if="{{ inquiryType === 2}}" inquiryInfo="{{ inquiryInfo }}"></ask-card>
+			<view class="msg-box" wx:for="{{ chatMsg }}" wx:key="{{ item.mid }}" id="{{ item.mid }}">
+				<view wx:if="{{item.style == 'self'}}" class="self">
+					<!--当前用户发送聊天消息-->
+					<view class="pub-right-container">
+						<view class="person-name">{{ inquiryInfo.patientName }}</view>
+
+						<view class="msg {{item.msg.type == 'txt' || item.msg.type == 'audio'  ? 'txt-bg' : ''}}">
+
+							<!--错误提示红点-->
+							<image class="err {{ item.isFail ? 'show' : 'hide'}}" src="{{ iconErro }}" />
+
+							<!--img 类型的消息-->
+							<view wx:if="{{ item.msg.type == 'img'}}">
+								<template is="{{ item.msg.type }}" data="{{ item }}" />
+							</view>
+
+							<!--音频类型的消息-->
+							<audio-msg wx:elif="{{ item.msg.type == 'audio' }}" isSelf="true" msg="{{ item }}">
+							</audio-msg>
+
+							<!--文本类型的消息-->
+							<view wx:else="{{ item.msg.type == 'txt'}}">
+								<!--正常文本消息-->
+								<view class="template" wx:for="{{ item.msg.data }}" wx:key="key">
+									<template is="{{ item.type }}" data="{{ item }}" />
+								</view>
+							</view>
+						</view>
+					</view>
+					<image class="avatar" src="{{inquiryInfo.patientSex === 1? selfHeadDefault1 : selfHeadDefault0}}" />
+				</view>
+
+				<view wx:elif="{{item.style == 'timertip'}}" class="interrogation-timer">
+					当前问诊还有
+					<text class="number">5</text>
+					分钟结束
+				</view>
+				<view wx:else class="doctor">
+					<!--接收医生消息-->
+					<image class="avatar"
+						src="{{ doctorInfo.doctorHeadPhoto ? doctorInfo.doctorHeadPhoto : iconDoctorDefault}}" />
+					<view class="pub-right-container">
+						<view class="person-name">{{ inquiryInfo.physicianName }}</view>
+						<!--聊天消息-->
+						<view
+							class="msg {{ (item.msg.type == 'txt' || item.msg.type == 'audio') &&  !item.msg.ext.rxId ? 'txt-bg' : ''}}">
+							<!--img 类型的消息-->
+							<view wx:if="{{ item.msg.type == 'img'}}">
+								<template is="{{ item.msg.type }}" data="{{ item }}" />
+							</view>
+
+							<!--音频类型的消息-->
+							<audio-msg wx:elif="{{ item.msg.type == 'audio' }}" isSelf="false" msg="{{ item }}">
+							</audio-msg>
+
+							<view wx:else="{{ item.msg.type == 'txt'}}">
+
+								<!--文本类型的消息-->
+								<view wx:if="{{!item.msg.ext.rxId}}">
+									<view class="template" wx:for="{{ item.msg.data }}" wx:key="key">
+										<template is="{{ item.type }}" data="{{ item }}" />
+									</view>
+								</view>
+
+								<!--扩展消息-->
+								<view wx:if="{{item.msg.ext.rxId}}" data-id="{{item.msg.ext.rxId}}" class="template"
+									bindtap="handleMsgExt">
+									<view class="msg-txt-ext">
+										<view class="msg-txt-ext-title">医生已开具电子处方</view>
+										<view class="msg-txt-ext-btn">查看处方</view>
+									</view>
+								</view>
+							</view>
+						</view>
+					</view>
+				</view>
+			</view>
+			<view class="inquiry-end" wx:if="{{ isEnd }}">问诊已结束</view>
+			<view class="buy-drug-btn" wx:if="{{ inquirySource == 7 && isEnd }}" bindtap="backBuyDrugs">返回购药</view>
+<!--			<view class="buy-drug-btn" wx:if="{{ isEnd }}" bindtap="backBuyDrugs">返回购药</view>-->
+			<view id="rate">
+				<view class="msg-rate-container" wx:if="{{ isMsgImRate }}">
+					<im-rate rate="{{ rate }}" id="imRate" bind:sub="onSub"></im-rate>
+				</view>
+				<view class="b-img" wx:if="{{ bannerImage }}">
+					<image src="{{ bannerImage }}" bind:tap="handleBanner" mode="widthFix" lazy-load class="bannerImage" />
+				</view>
+			</view>
+		</view>
+	</view>
+</scroll-view>
+
+<!--文本消息模版区域-->
+<template name="txt">
+	<text class="msg-txt">{{ item.data }}</text>
+</template>
+<!--图片消息模版区域-->
+<template name="img">
+	<image class="img-msg" src="{{ item.msg.data }}" bind:tap="previewImage" data-url="{{ item.msg.data }}"
+		mode="widthFix" />
+</template>
+
+<!--音频消息模版区域-->
+<template name="audio">
+	<audio src="{{ item.msg.url }}" controls autoplay />
+</template>
+
+<!-- 弹窗 -->
+<view class="black_box" wx:if="{{ couponAlert.isTip && couponAlertShow }}"></view>
+<!-- 广告弹窗 -->
+<view class="ad_box" wx:if="{{ couponAlert.isTip && couponAlertShow }}">
+	<view class="contents" bindtap='jumpLink'>
+		<image src='{{ couponAlert.bgImgUrl }}' mode="widthFix"></image>
+	</view>
+	<image src='/images/close_alert.png' class="close_img" bindtap='windowClose'></image>
+</view>

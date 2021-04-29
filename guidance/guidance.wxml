@@ -1,0 +1,169 @@
+<!--pages/quickConsultation///pages/guidance/guidance.wxml-->
+<tabBar active="1" class="tab-bar" />
+<view class="container">
+  <!-- <functional-page-navigator
+    version="develop"
+    name="requestPayment"
+    args="{{ args }}"
+    bind:success="paymentSuccess"
+    bind:fail="paymentFailed"
+  >
+    <button class="payment-button" style="margin-top:50px">支付 0.01 元</button>
+  </functional-page-navigator> -->
+  <scroll-view scroll-y="true" class="common_section chat-box" style="height: {{ scrollHeight }}px" scroll-into-view="{{ scorllBottom }}">
+    <view class="cell {{ item.userData ? 'cell_user' : '' }}" wx:for="{{ guidanceList }}" wx:key="index" id="{{ 'msg' + index }}">
+      <block wx:if="{{ !item.userData }}">
+        <view class="cell_left">
+          <image src="../../../images/assistant-photo.png"></image>
+        </view>
+        <view class="cell_center">
+          <view class="name">医生小助</view>
+          <view class="dialog-box">{{ item.machineLanguage }}</view>
+        </view>
+      </block>
+      <block wx:else>
+        <view class="cell_center">
+          <view class="name">{{ item.userData.patientName }}</view>
+          <view class="dialog-box">{{ item.selectedDate.msg }}</view>
+        </view>
+        <view class="cell_left">
+          <image src="../../../images/user-photo.png"></image>
+        </view>
+      </block>
+    </view>
+
+    <view class="inquiry-box" wx:if="{{ inquiryBoxShow }}" id="{{ 'msg' + guidanceList.length }}">
+      <view class="header">图文问诊<text>极速问诊</text></view>
+      <view class="content">
+        <view class="left">
+          <image src="../../../images/doctor-photo.png"></image>
+        </view>
+        <view class="center">
+          <view class="text">{{ inquiryData.name }}</view>
+          <view><text class="red">¥{{ inquiryData.askDoctorsPrice }}</text><text class="common-line-price" wx:if="{{ inquiryData.linePrice }}">¥{{ inquiryData.linePrice }}</text></view>
+        </view>
+        <view class="right" bindtap="createInquiry">立即咨询</view>
+      </view>
+      <text class="tips">服务说明：{{ inquiryData.doctorSuggests }}</text>
+      <view class="coupons-cell" bindtap="openCouponsBox">
+        <view class="left">优惠券<text class="red" wx:if="{{ selectedCoupon.defaultOption == 1 }}">已选择最佳优惠</text></view>
+        <view class="right blue" wx:if="{{ couponsList.length > 0 && !selectedCoupon.id }}">{{ couponsList.length }}张优惠券可用</view>
+        <view class="right red" wx:elif="{{ couponsList.length > 0 }}">-¥{{ selectedCoupon.actualDiscountDes }}</view>
+        <view class="right" wx:else>暂无可用优惠券</view>
+        <image class='arrow-icon' src='/images/black-arrow.png' wx:if="{{ couponsList.length > 0 }}"></image>
+      </view>
+    </view>
+    <view style="height: 80rpx"></view>
+  </scroll-view>
+  <view class="bottom-box" id="bottom-box" wx:if="{{ !inquiryBoxShow && !waitingBoxShow }}">
+    <block wx:if="{{ currentStep == 1 }}">
+      <view class="flex-box">
+        <view class="tag" wx:for="{{ haveIdCardPatientList }}" wx:key="index" bindtap="selectedPatient" data-item="{{ item }}" wx:if="{{ index < 5}}">{{ item.patientName }}</view>
+        <view class="tag" bindtap="openPatientList">新增就诊人</view>
+      </view>
+    </block>
+    <block wx:if="{{ currentStep > 1 }}">
+      <block wx:if="{{ guidanceData[currentStep].whetherAlternative }}">
+        <checkbox-group bindchange="checkboxChange" class="flex-box">
+          <label wx:for="{{ guidanceData[currentStep].labelList }}" class="tag {{ item.checked ? 'selected' : '' }}" wx:key="index">
+            <checkbox value="{{ item.code }}" />
+            {{ item.msg }}
+          </label>
+        </checkbox-group>
+        <block wx:if="{{ textareaShow }}">
+          <textarea maxlength="35" value="{{ textareaValue }}" placeholder="请输入信息..." bindinput="getTextareaValue">
+            <text class="text-count">{{ textareaValue.length }}/35</text>
+          </textarea>
+        </block>
+      </block>
+      <block wx:else>
+        <radio-group bindchange="radioChange" class="flex-box">
+          <label wx:for="{{ guidanceData[currentStep].labelList }}" class="tag {{ item.checked ? 'selected' : '' }}" wx:key="index">
+            <radio value="{{ index }}" checked="{{ item.checked }}"/>
+            {{ item.msg }}
+          </label>
+        </radio-group>
+      </block>
+      <view class="desc" wx:if="{{ guidanceData[currentStep].description }}">{{ guidanceData[currentStep].description }}</view>
+      <button class="button active" bindtap="checkValue" data-index="{{ currentStep+1 }}">确定{{ guidanceData[currentStep].whetherAlternative ? '(可多选)' : '' }}</button>
+    </block>
+  </view>
+</view>
+
+<view class="waiting" wx:if="{{ waitingBoxShow }}">
+  <image src="../../../images/time-icon.png"></image>
+  <text>正在为您接入医生，请耐心等待…</text>
+</view>
+
+<!-- 弹窗 -->
+<view class="black_box coupon_black" wx:if="{{ couponsNotify.list.length > 0 && couponsNotifyShow }}"></view>
+<!-- 优惠券弹窗 -->
+<view class="coupon_alert" wx:if="{{ couponsNotify.list.length > 0 && couponsNotifyShow }}">
+  <image src='/images/guidance-banner.png' class="coupon_img"></image>
+  <view class="title">{{ couponsNotify.title }}</view>
+  <view class="desc">{{ couponsNotify.desc }}</view>
+  <view class="common_section coupon_section">
+    <view class="cell" wx:for="{{ couponsNotify.list }}" wx:key="key">
+      <view class="cell_center">
+        <view class="name">
+          <text class="tag">{{item.couponDiscountWayStr}}</text>{{item.couponName}}</view>
+        <block wx:if="{{item.preferentialDesc}}">
+          <view class="empty" wx:if="{{item.couponUseLimit > 0}}">{{item.preferentialDesc}}</view>
+          <view class="text" wx:else>无门槛使用</view>
+        </block>
+        <block wx:else>
+          <view class="empty" wx:if="{{item.couponUseLimit > 0}}">满{{item.couponUseLimit}}元可用</view>
+          <view class="text" wx:else>无门槛使用</view>
+        </block>
+        <view class="text_block">{{item.couponExpireDate}}</view>
+      </view>
+      <view class="cell_left">
+        <view class="price" wx:if="{{item.couponDiscountWay == 1}}">
+          <text class="symbol">¥</text>{{item.couponCash}}</view>
+        <view class="price" wx:else>{{item.couponDiscountFactorStr}}</view>
+        <view class="dot dot_top"></view>
+        <view class="dot dot_bottom"></view>
+      </view>
+    </view>
+  </view>
+  <image src='/images/close_alert.png' class="close_img" bindtap='couponsNotifyClose'></image>
+</view>
+
+<halfScreenDialog show="{{ patientListShow }}" maskClosable="ture" title="患者管理" bind:close="dialogClose">
+  <view slot="desc" class="patient-list-mask" style="padding-bottom: {{ tabbarHeight }}px">
+    <view class="common_section" wx:if="{{ !editPatient }}">
+      <block wx:if="{{ patientList.length }}">
+        <view class="cell" wx:for="{{ patientList }}" wx:key="index" bindtap="selectedPatient" data-item="{{ item }}">
+          <view class="cell_center">
+            <view>{{ item.patientName }} {{ patientSex[item.patientSex] }} {{ item.patientAge }}岁</view>
+            <view wx:if="{{item.patientIDCard.length == 0}}" class="idcard_text">身份信息不全，请点击补充</view>
+          </view>
+          <view class="cell_right">
+            <view class="img-box" catchtap="toPatientInfo" data-id="{{ item.id }}">
+              <image src="../../../images/edit-icon.png" mode="widthFix" />
+            </view>
+            <view class="img-box" catchtap="checkDeletePatient" data-item="{{ item }}">
+              <image src="../../../images/clear_ss.png" mode="widthFix" />
+            </view>
+          </view>
+        </view>
+      </block>
+
+      <missingData-view zhi="new1" textval2="暂无患者，请添加~" wx:elif="{{ patientList.length <= 0 }}" imageUrl="{{cf_chapter}}/images/require-list-empty.png" paddingValue="30% 0" />
+    </view>
+    
+    <patient-info currentPatientId="{{ currentPatientId }}" pageFrom="currentPage" bind:updata="updataSuccess" wx:else />
+    
+    <view style="height: 60rpx"></view>
+    <view class="btns">
+      <view class="tips" wx:if="{{ patientList.length >= 10 }}">每个账号最多可添加10个患者</view>
+      <button bindtap="toPatientInfo" class="button {{ patientList.length >= 10 ? '' : 'active' }}">添加患者信息</button>
+    </view>
+  </view>
+</halfScreenDialog>
+
+<halfScreenDialog show="{{ couponsDialog }}" maskClosable="ture" title="优惠券" hasData="true">
+	<view slot="desc" class="coupons-dialog">
+		<couponsList couponsData="{{ couponsList }}" pageFrom="guidance" bind:action="userCoupon"></couponsList>
+	</view>
+</halfScreenDialog>

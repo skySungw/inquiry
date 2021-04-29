@@ -1,0 +1,371 @@
+@import '/common/tableView.wxss';
+Page{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: block;
+  overflow-y: hidden;
+  background:rgba(245,245,245,1);
+}
+.nav {
+  position: relative;
+  top: 90rpx;
+  padding: 30rpx;
+}
+.nav-box-bg{
+  border-radius:8rpx;
+  background-color: #fff;
+}
+.nav-information-title {
+  font-size: 32rpx;
+  color: rgba(51, 51, 51, 1);
+  height: 80rpx;
+  line-height: 80rpx;
+  padding-left: 24rpx;
+  font-family:PingFangSC-Medium,PingFang SC;
+  font-weight:500;
+  border-bottom: 1px solid #EEEEEE;
+}
+.nav-interrogation-xx{
+  display: flex;
+  margin-top: 20rpx;
+  padding-left: 24rpx;
+  padding-right: 24rpx;
+}
+.nav-interrogation-xx-left{
+  font-size: 30rpx;
+  color: rgba(153, 153, 153, 1);
+  width: 180rpx;
+  min-width: 180rpx;
+  max-width: 180rpx;
+}
+.nav-interrogation-xx-right{
+  font-size: 30rpx;
+  color: rgba(51, 51, 51, 1);
+}
+.nav-interrogation-imgList{
+  position: relative;
+  padding-left: 24rpx;
+  padding-right: 24rpx;
+  margin-top: 20rpx;
+  display: flex;
+  padding-bottom: 20rpx;
+}
+.imgList-img{
+  display: block;
+  border-radius:8rpx;
+  margin-right: 20rpx;
+  position: relative;
+  z-index: 0;
+}
+.nav-interrogation-imgList .imgList-img:nth-child(4){
+  margin-right: 0;
+}
+.imgList-img image{
+  width:147rpx;
+  height:147rpx;
+  display: block;
+  border-radius:8rpx;
+}
+.imgList-back{
+  width:147rpx;
+  height:147rpx;
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 2rpx;
+  background-color: rgba(0,0,0,0.5);
+} 
+.imgList-text{
+  font-size: 34rpx;
+  color: #fff;
+  position: absolute;
+  top: 35%;
+  left: 37%;
+  z-index: 3;
+}
+
+.scroll_view{
+	padding-bottom: 450rpx;
+	background:rgba(245,245,245,1);
+}
+.bottom320 {
+  padding-bottom: 320rpx;
+}
+
+.scroll_view_X{
+  padding:50rpx 0 370rpx 0;
+  background:rgba(245,245,245,1);
+}
+.msg-content-box{
+  padding: 30rpx;
+}
+.msg-box {
+	padding-top: 30rpx;
+}
+.msg-rate-container {
+  margin: 30rpx;
+}
+.self {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start; 
+}
+.doctor{
+   display: flex;
+  justify-content: flex-start;
+  align-content: flex-start; 
+}
+.doctor .avatar,.self .avatar {
+	width: 80rpx;
+	height: 80rpx;
+	border-radius: 50%;
+  flex-shrink: 0;
+}
+.pub-right-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  margin-left: 20rpx;
+}
+.pub-right-container .person-name {
+  color: #999999;
+  font-size: 20rpx;
+  margin-bottom: 4rpx;
+}
+.self .pub-right-container {
+  align-items: flex-end;
+  margin-right: 20rpx;
+  margin-left: 0;
+}
+.self .person-name {
+  text-align: right;
+}
+.self .msg {
+  position: relative;
+  flex-shrink: 0;
+  max-width: 70%;
+  border-radius:20rpx 0rpx 20rpx 20rpx;
+}
+.doctor .msg{
+  flex-shrink: 0;
+  max-width: 70%;
+  border-radius:0rpx 20rpx 20rpx 20rpx;
+}
+.self .msg-txt{
+  font-size:30rpx;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  word-break: break-all;
+}
+.doctor .msg-txt {
+  font-size:30rpx;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  word-break: break-all;
+}
+.doctor .txt-bg {
+  background:rgba(255,255,255,1);
+  color:rgba(48,48,60,1);
+  padding: 20rpx;
+}
+.self .txt-bg{
+  background:#00b955;
+  color:rgba(255,255,255,1);
+  padding: 20rpx;
+}
+.doctor .img-msg{
+  width:180rpx; 
+  height:240rpx;
+  /* margin-left: -20rpx;  */
+  border-radius: 20rpx; 
+}
+.self .img-msg{
+  width:180rpx; 
+  height:240rpx;
+  /* margin-right: -20rpx;  */
+  border-radius: 20rpx; 
+}
+.msg-txt-ext{
+  width:420rpx;
+  background:rgba(255,255,255,1);
+  border-radius:8rpx;
+}
+.msg-txt-ext-title{
+  height: 92rpx;
+  width: 100%;
+  text-align: center;
+  line-height: 92rpx;
+  font-size:30rpx;
+  font-family:PingFangSC-Medium,PingFang SC;
+  font-weight:600;
+  color:#333333;
+}
+.msg-txt-ext-btn{
+  height: 82rpx;
+  width: 100%;
+  font-size:30rpx;
+  text-align: center;
+  line-height: 82rpx;
+  border-top: 1rpx solid #EEEEEE;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:600;
+  color:#00b955;
+}
+.msg-cmd-text{
+  margin-top: 30rpx;
+  font-size:24rpx;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color:rgba(161,165,176,1);
+  line-height:33rpx;
+  text-align: center;
+}
+.err{
+	width: 32rpx;
+	height: 32rpx;
+	position: absolute;
+	left: -40rpx;
+}
+.hide{
+	display: none;
+}
+.show{
+	display: block;
+}
+
+.bannerImage {
+  width: 100%;
+}
+/* 问诊倒计时5分钟显示 */
+.interrogation-timer {
+  width: 319rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  background-color: #EEEEEE;
+  margin: 30rpx auto;
+  text-align: center;
+  font-size: 24rpx;
+  color: #999999;
+  border-radius: 30rpx;
+}
+.number {
+  color: #00b955;
+}
+
+/* 审核通过tips */
+.approved-tips-wapper {
+  height: 72rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #ecfbf9;
+  padding: 0 40rpx;
+}
+.prescribe-text {
+  justify-content: center;
+}
+
+.approved-tips-wapper .left {
+  font-size: 28rpx;
+  color: #00b955;
+}
+
+.approved-tips-wapper .right {
+  background: linear-gradient(90deg,#00b955, #00b955);
+  border-radius: 25px;
+  width: 120rpx;
+  height: 48rpx;
+  line-height: 48rpx;
+  text-align: center;
+  font-weight: 500;
+  color: #ffffff;
+  font-size: 24rpx;
+}
+
+/* 审核未通过tip */
+.not-approved-tips-wapper {
+  width: 100%;
+  height: 72rpx;
+  line-height: 72rpx;
+  background: #ffeeee;
+  font-size: 28rpx;
+  font-family: PingFangSC, PingFangSC-Regular;
+  font-weight: 400;
+  text-align: center;
+  color: #ff2121;
+}
+
+/* 退款tip */
+.refund-tips-wapper {
+  width: 100%;
+  background: #ffeeee;
+  font-size: 28rpx;
+  font-family: PingFangSC, PingFangSC-Regular;
+  font-weight: 400;
+  text-align: center;
+  color: #ff2121;
+}
+
+.inquiry-end {
+  color: #999999;
+  font-size: 28rpx;
+  width: 184rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  text-align: center;
+  border-radius: 30rpx;
+  background-color: #eeeeee;
+  margin: 30rpx auto;
+}
+
+.b-img {
+  margin-top: 30rpx;
+}
+
+.ad_box {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 500rpx;
+  height: 640rpx;
+  border-radius: 14rpx;
+  z-index: 99;
+}
+
+.ad_box .contents {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+}
+
+.ad_box .contents image {
+  width: 100%;
+}
+
+.close_img {
+  width: 60rpx;
+  height: 60rpx;
+  position: absolute;
+  bottom: -136rpx;
+  left: 50%;
+  margin-left: -30rpx;
+  z-index: 1002;
+}
+
+.buy-drug-btn{
+  color: #FFFFFF;
+  font-size: 30rpx;
+  font-weight: 600;
+  width: 528rpx;
+  margin: 50rpx auto;
+  height: 90rpx;
+  line-height: 90rpx;
+  text-align: center;
+  background: #00b955;
+  border-radius: 48px;
+}

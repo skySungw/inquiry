@@ -1,0 +1,35 @@
+<!--pages/inquiry//inquiryActive/inquiryActive.wxml-->
+<navBar titleText="荷叶健康" />
+<view class="container">
+  <image src="{{ cdn_link }}images/inquiryBanner.png" class="top-image"></image>
+  <view class="coupons">
+    <couponsList couponsData="{{ couponsData.couponList }}" pageFrom="inquiry" bind:action="jumpLink"></couponsList>
+  </view>
+
+  <swiper autoplay="false" interval="5000" class="banner" wx:if="{{ packageAd.length > 0 }}" circular>
+    <swiper-item class="banner__item" wx:key="key" wx:for="{{ packageAd }}" wx:for-index="key" wx:for-item="item">
+      <image src="{{ item.bannerImage ? item.bannerImage+'@702x230' : '/images/banner_mr.png' }}" bindtap='toLink' data-index='key' data-item="{{item}}"></image>
+    </swiper-item>
+  </swiper>
+
+  <view class="product-title" wx:if="{{ activeGoodsList.length > 0 }}">门店特惠商品</view>
+  <view class="common_section">
+    <view class="cell" wx:for="{{ activeGoodsList }}" wx:key="index">
+      <view class="cell_left">
+        <view class="tag" wx:if="{{ item.activityInfo.limitNum > 0 }}" style="background: {{ 'url(' + cdn_link + '/images/inquiryTag.png) no-repeat' }};background-size: 100%;">促销价</view>
+        <image src="{{ item.img }}"></image>
+      </view>
+      <view class="cell_center">
+        <view class="name">{{item.medicinesName}} {{item.commonName}}</view>
+        <view class="desc">{{ item.product_spec }}</view>
+        <view class="btns">
+          <view class="price-box">
+            <view class="price {{ item.activityInfo ? '' : 'price-height' }}"><text class="symbol">¥</text>{{ item.activityInfo ? item.activityInfo.actPrice : item.sellingPric }}</view>
+            <text class="common-line-price" wx:if="{{ item.activityInfo }}">¥{{item.price}}</text>
+          </view>
+          <view class="button" bindtap='toOrderDetail' data-item="{{item}}">立即抢购</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

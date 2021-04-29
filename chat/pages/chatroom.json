@@ -1,0 +1,8 @@
+{
+  "navigationStyle": "default",
+  "navigationBarTitleText": "问诊消息",
+  "enablePullDownRefresh": true,
+	"usingComponents": {
+		"chat": "../component/index"
+	}
+}

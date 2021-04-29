@@ -1,0 +1,15 @@
+<!--pages/scan//pages/addInformation/doctorWait.wxml-->
+<view class="contain">
+    <im-tab-bar active="2"></im-tab-bar>
+    <scroll-view scroll-y="true" class="page_main">
+        <im-doctor-helper inquiryInfo="{{inquiryInfo}}"></im-doctor-helper>
+        <im-medicine-card inquiryInfo="{{inquiryInfo}}" lastDiagnosis="{{lastDiagnosis}}"></im-medicine-card>
+        <view class="wait">
+            <image class="time_icon" src="../../../images/time-icon.png"></image>
+            <view>
+                正在为您接入医生，请耐心等待…
+            </view>
+        </view>
+        <view class="main_bottom"></view>
+    </scroll-view>
+</view>

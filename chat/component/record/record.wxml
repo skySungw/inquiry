@@ -1,0 +1,32 @@
+<view 
+  wx:if="{{ recordStatus != recordStatusConfig.HIDE }}" 
+  class="modal modal-record" 
+  bind:tap="toggleRecordModal">
+	<view 
+    class="modal-body" 
+    catch:tap="toggleWithoutAction">
+
+    <!--显示录音动画-->
+		<view class='sound-waves'>
+      <view 
+        wx:for="{{radomHeight}}" 
+        wx:key="item" 
+        style='height:{{item}}rpx;margin-top:-{{item/2}}rpx'>
+      </view>
+      <view style='clear:both;width:0;height:0;'></view>
+		</view>
+
+    <!--显示录音文字状态-->
+		<text class="desc">{{ recordDesc[recordStatus] }}</text>
+
+    <!--录音按钮-->
+		<button
+			class="dot"
+			catch:touchstart="handleRecording"
+			catch:touchmove="handleRecordingMove"
+			catch:touchend="handleRecordingCancel"
+			catch:touchcancel="handleRecordingCancel">
+			<image class="icon-mic" src="../../images/record.png"/>
+		</button>
+	</view>
+</view>

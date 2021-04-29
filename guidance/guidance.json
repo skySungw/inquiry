@@ -1,0 +1,12 @@
+{
+  "navigationStyle": "default",
+  "navigationBarTitleText": "医生助理导诊",
+  "disableScroll": true,
+  "usingComponents": {
+    "halfScreenDialog": "../../../component/halfScreenDialog/halfScreenDialog",
+    "missingData-view": "../../../component/missingData/missingData",
+    "patient-info": "../../../component/patientInfo/patientInfo",
+    "tabBar": "../../../component/imTabBar/tabBar",
+    "couponsList": "../../../component/couponsList/couponsList"
+  }
+}

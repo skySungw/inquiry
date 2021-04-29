@@ -1,0 +1,8 @@
+{
+  "component": true,
+  "usingComponents": {
+    "chat-record": "../record/record",
+    "chat-camera": "../camera/camera",
+    "chat-image": "../image/image"
+  }
+}

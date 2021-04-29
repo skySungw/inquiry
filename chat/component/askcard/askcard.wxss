@@ -1,0 +1,69 @@
+/* pages/chat/component/askcard/askcard.wxss */
+.card-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.card-container-left {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-right: 20rpx;
+}
+
+.person-name {
+  color: #999999;
+  font-size: 20rpx;
+  margin-bottom: 4rpx;
+}
+
+.avatar {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.inter_card_container {
+  width: 490rpx;
+  /* height: 380rpx; */
+  background-color: #ffffff;
+  border-radius: 20rpx 0rpx 20rpx 20rpx;
+  padding-bottom: 30rpx;
+}
+
+.card_title {
+  height: 72rpx;
+  line-height: 72rpx;
+  font-size: 30rpx;
+  padding-left: 30rpx;
+  font-weight: bold;
+  color: #333333;
+  border-bottom: 1rpx solid #eeeeee;
+}
+
+.user_con {
+  padding: 30rpx 19rpx 0 30rpx;
+}
+
+.user_con .info {
+  color: #333333;
+  font-weight: bold;
+  margin-right: 40rpx;
+
+}
+
+.history_disease_des {
+  padding: 30rpx 30rpx 0rpx 30rpx;
+  font-size: 30rpx;
+}
+
+.history_disease_des .title {
+  color: #999999;
+}
+
+.history_disease_des .info {
+  color: #333333;
+  padding-left: 20rpx;
+  word-wrap: break-word; /*纯数字不能折行问题*/
+}

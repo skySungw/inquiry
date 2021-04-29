@@ -1,0 +1,11 @@
+{
+  "navigationBarBackgroundColor": "#fff",
+  "navigationStyle": "default",
+  "navigationBarTextStyle": "black",
+  "navigationBarTitleText": "问诊消息",
+  "usingComponents": {
+    "im-tab-bar": "../../../component/scanCodeTabBar/tabBar",
+    "im-doctor-helper": "../../../component/doctorHelper/doctorHelper",
+    "im-medicine-card": "../../../component/medicineCard/medicineCard"
+  }
+}

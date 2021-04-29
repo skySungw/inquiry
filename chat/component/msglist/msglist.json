@@ -1,0 +1,12 @@
+{
+  "component": true,
+  "usingComponents": {
+    "im-tab-bar": "../../../../../component/imTabBar/tabBar",
+    "im-rate": "../imRate/rate",
+    "audio-msg": "../audio/audio",
+    "ask-card": "../askcard/askcard",
+    "scanCode-im-tab-bar": "../../../../../component/scanCodeTabBar/tabBar",
+    "im-doctor-helper": "../../../../../component/doctorHelper/doctorHelper",
+    "im-medicine-card": "../../../../../component/medicineCard/medicineCard"
+  }
+}

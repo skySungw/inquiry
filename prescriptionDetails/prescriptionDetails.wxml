@@ -1,0 +1,90 @@
+<!--pages/onlineGoods/prescriptionDetails/prescriptionDetails.wxml-->
+<view class="tips" wx:if="{{ jsonData.inquiryPrescription.invalidInfo && jsonData.inquiryPrescription.auditStatus === 3}}">审核不通过原因：{{ jsonData.inquiryPrescription.invalidInfo }}</view>
+<view class="close-cause" wx:if="{{status_u === 2 && reasonTitle}}">
+	原因：{{reasonTitle}}
+</view>
+<view class="close-cause" wx:if="{{status_u === 3}}">
+	原因：开方超时
+</view>
+<block wx:if="{{banner[0]}}">
+    <image class="banner" mode="aspectFill" lazy-load src="{{banner[0].bannerImage}}" bindtap="tolink"></image>
+</block>
+<view class="top-box">
+	<view class="status-box">
+		<view class="line" ></view>
+		<view class="icon_cont">
+			<view wx:for="{{statusImageList}}" wx:key="index" wx:for-item="item">
+				<image src="{{item}}" ></image>
+			</view>
+		</view>
+	</view>
+	<!-- 审核状态 -->
+	<view class="list_cont_status">
+		<view wx:for="{{statusList}}" wx:key="index" wx:for-item="item">{{ item }}</view>
+	</view>
+	<view class="button" style="text-align: {{isCenter ? 'left' : 'center'}}">{{ detailTitle }}</view>
+	<!--*****-->
+<!--	<view class="button" wx:if="{{ jsonData.inquiryPrescription.auditStatus == 1 }}">药师审核处方后，我们将为您推送审核结果</view>-->
+<!--	<view class="button" wx:if="{{ jsonData.inquiryPrescription.auditStatus == 2 }}">-->
+		<!-- isEffective 0 有效未使用、1 未使用、2已过期 -->
+<!--		<block wx:if="{{ jsonData.inquiryPrescription.isEffective == 0 }}">您的处方已通过审核</block>-->
+<!--		<block wx:if="{{ jsonData.inquiryPrescription.isEffective == 1 }}">处方已使用</block>-->
+<!--		<block wx:if="{{ jsonData.inquiryPrescription.isEffective == 2 }}">处方已过期</block>-->
+<!--	</view>-->
+<!--	<view class="button" wx:if="{{ jsonData.inquiryPrescription.auditStatus == 3 }}">您的处方未通过审核</view>-->
+</view>
+
+<block wx:if="{{jsonData.inquiryPrescription.signType == 20 && jsonData.inquiryPrescription.prescriptionImage}}">
+	<image class="img" mode="widthFix" src="{{jsonData.inquiryPrescription.prescriptionImage}}"></image>
+</block>
+<block wx:else>
+	<view class="video-info">
+		<view class="video-info-header">
+			<view>{{jsonData.inquiryPrescription.patientName}}</view>
+			<view>{{jsonData.inquiryPrescription.patientSex==1?'男':'女'}}</view>
+			<view>{{jsonData.inquiryPrescription.patientAge}}</view>
+		</view>
+		<view class="video-info-main">
+			<view>
+				<view>医生信息：</view>
+				<view>{{jsonData.inquiryPrescription.physicianName}}</view>
+			</view>
+			<view>
+				<view>问诊时间：</view>
+				<view>{{jsonData.inquiryPrescription.inquiryTime}}</view>
+			</view>
+			<view>
+				<view>过敏史：</view>
+				<view>{{ext.allergySymptom == 1 ? '无' : ext.allergySymptomExplain}}</view>
+			</view>
+			<view>
+				<view>病情描述：</view>
+				<view>{{ext.mainSuit}}</view>
+			</view>
+			<view>
+				<view>诊断结果：</view>
+				<view>{{ext.diagnosis}}</view>
+			</view>
+			<view wx:if="{{jsonData.inquiryPrescription.medicineType==0}}">
+				<view>用药请求：</view>
+				<view class="drug">
+					<view wx:for="{{ext.prescriptionDetail}}" wx:key="index" wx:for-item="item" wx:for-index="index">
+						<view>{{item.commonName ? item.commonName : item.productName}}{{' x' + item.quantity + ';'}}</view>
+					</view>
+				</view>
+			</view>
+			<view wx:if="{{jsonData.inquiryPrescription.medicineType==1}}">
+				<view>用药请求：</view>
+				<view class="drug">
+					<view wx:for="{{ext.prescriptionTCMDetail}}" wx:key="index" wx:for-item="item" wx:for-index="index">
+						<view>{{item.commonName ? item.commonName : item.productName}}{{' ' + item.quantity + 'g;'}}</view>
+					</view>
+				</view>
+			</view>
+		</view>
+	</view>
+</block>
+<view wx:if="{{jsonData.inquiryPrescription.source != 3 && jsonData.inquiryPrescription.source != 7}}">
+	<button class="bottom-button" wx:if="{{ jsonData.inquiryPrescription.auditStatus == 2 && jsonData.inquiryPrescription.isEffective == 0 }}" bindtap="toComfirmProducts">去购药</button>
+</view>
+<view class="fixed-btn" bindtap="savePrescription">保存处方</view>

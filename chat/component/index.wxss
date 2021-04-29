@@ -1,0 +1,4 @@
+.msg-box{
+  height: auto;
+  width: 100%;
+}

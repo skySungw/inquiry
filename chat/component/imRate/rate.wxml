@@ -1,0 +1,29 @@
+<view class="im-rate-container">
+  <view wx:if="{{ isRate === '1' }}">
+    <view class="im-rate-content im-pub-flex">
+      <view class="im-blod-text">对医生还满意吗？</view>
+      <view class="im-nor-text">您的评价会让医生做的更好</view>
+      <view class="im-rates">
+        <view class="im-rates-item {{ index === 4? 'im-last-rates-item':'' }}" wx:for="{{ [1,2,3,4,5] }}" wx:key="*this">
+          <image bindtap="onChangRate" data-index="{{ index + 1}}" wx:if="{{ index >= myRate }}" class="im-rate-item-img" src="/images/icon_im_rate_default.png"></image>
+          <image bindtap="onChangRate" data-index="{{ index + 1}}" wx:else class="im-rate-item-img" src="/images/icon_im_rate_selected.png"></image>
+        </view>
+      </view>
+      <view class="im-rate-text">{{ rateText }}</view>
+    </view>
+    <view class="im-rate-btn im-pub-flex" bindtap="onSub" data-rate="{{ myRate }}">提交</view>
+  </view>
+  <view class="im-disabled-rate" wx:if="{{ isRate === '2' }}">
+    <view>
+      <view class="im-blod-text">我的评价</view>
+      <text class="im-rate-text im-rate-first-text">满意度</text>
+      <text class="im-rate-text">{{ rateText }}</text>
+    </view>
+    <view class="im-disabled-rates">
+      <view class="im-rates-item" wx:for="{{ [1,2,3,4,5] }}" wx:key="*this">
+        <image data-index="{{ index + 1}}" wx:if="{{ index >= myRate }}" class="im-rate-item-img" src="/images/icon_im_rate_default.png"></image>
+        <image data-index="{{ index + 1}}" wx:else class="im-rate-item-img" src="/images/icon_im_rate_selected.png"></image>
+      </view>
+    </view>
+  </view>
+</view>

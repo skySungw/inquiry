@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+    "couponsList": "../../../component/couponsList/couponsList"
+  }
+}

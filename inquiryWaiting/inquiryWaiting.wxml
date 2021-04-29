@@ -1,0 +1,5 @@
+<navBar title-text="极速问诊" showCapsule="{{true}}" />
+<view class="waitingBox">
+  <image src="/images/inquiryWaiting.png"/>
+  <span class="waitingTip">正在为您接入医生，请等待...</span>
+</view>

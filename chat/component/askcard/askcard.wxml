@@ -1,0 +1,56 @@
+<!--pages/chat/component/askcard/askcard.wxml-->
+<wxs module="filter">
+  var patientSexFilter = function (value) {
+    if (value === 1) {
+      return "男"
+    } else if (value === 2) {
+      return "女"
+    }
+  }
+  var allergySymptomFilter = function (value) {
+    if (value === 1) {
+      return '否'
+    } else if (value === 2) {
+      return '是'
+    } else {
+      return ''
+    }
+  }
+  module.exports = {
+    patientSexFilter: patientSexFilter,
+    allergySymptomFilter: allergySymptomFilter
+  }
+</wxs>
+
+
+<view class="card-container"> 
+  <view class="card-container-left">
+    <view class="person-name">{{ inquiryInfo.patientName }}</view>
+    <view class="inter_card_container">
+      <view class="card_title">问诊人信息</view>
+      <view class="user_con">
+        <text class="info">{{inquiryInfo.patientName}}</text>
+        <text class="info">{{filter.patientSexFilter(inquiryInfo.patientSex)}}</text>
+        <text class="info">{{inquiryInfo.patientAge}}</text>
+      </view>
+
+      <view class="history_disease_des">
+        <text class="title">过敏史：</text>
+        <text class="info">{{inquiryInfo.allergySymptomExplain || '无'}}</text>
+      </view>
+
+      <view class="history_disease_des">
+        <text class="title">既往病史：</text>
+        <text class="info">{{inquiryInfo.medicalHistory || '无'}}</text>
+      </view>
+
+      <view class="history_disease_des">
+        <text class="title">病情描述：</text>
+        <text class="info">{{inquiryInfo.lastDiagnosis.mainSuit}}</text>
+      </view>
+    </view>
+  </view>
+  <view>
+    <image class="avatar" src="{{inquiryInfo.patientSex === 1? selfHeadDefault1 : selfHeadDefault0}}"/>
+  </view>
+</view>

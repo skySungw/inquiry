@@ -1,0 +1,68 @@
+.modal {
+	position: fixed;
+	top: 0;
+	right: 0;
+	left: 0;
+	bottom: 0;
+	z-index: 999;
+}
+
+.modal-record .modal-body {
+	width: 480rpx;
+	height: 440rpx;
+	background-color: rgba(0, 0, 0, 0.6);
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	border-radius: 3px;
+	box-shadow: 0 0 32rpx rgba(0, 0, 0, 0.15);
+	position: fixed;
+  top: 50%;
+	left: 50%;
+  margin-top: -220rpx;
+	margin-left: -240rpx;
+}
+
+.modal-record .desc {
+	color: #fff;
+	font-size: 13px;
+	margin-bottom: 40rpx;
+	display: block;
+	height: 30rpx;
+	width: 100%;
+	text-align: center;
+}
+
+.modal-record .dot {
+	width: 128rpx;
+	height: 128rpx;
+	border-radius: 50%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.dot image {
+	width: 44rpx;
+	height: 44rpx;
+}
+
+.sound-waves {
+  width: 100%;
+  box-sizing: border-box;
+  padding-left:10%;
+  margin-top: 80rpx;
+  height: 80rpx;
+  text-align: center;
+}
+ 
+.sound-waves view {
+  transition: all 0.5s;
+  width: 1%;
+  margin-left: 1.5%;
+  margin-right: 1.5%;
+  height: 160rpx;
+  background-color: #fff;
+  float: left;
+}
